@@ -26,16 +26,14 @@
       padding: 8px 12px;
       margin: 6px;
       border-radius: 5px;
-      background: #ffc0cb; /* pendiente (rosado) */
+      background: #ffc0cb; /* pendiente */
       color: #000;
       cursor: pointer;
       border: 1px solid #ccc;
     }
-    .aprobado {
-      background: violet !important;
-    }
+    .aprobado { background: violet !important; color: white; }
     .bloqueado {
-      background: #800000 !important; /* burdeo */
+      background: #800000 !important;
       color: white;
       cursor: not-allowed;
     }
@@ -51,169 +49,135 @@
 
   <script>
     const datos = [
-      {
-        semestre: 1,
-        ramos: [
+      { semestre: 1, ramos: [
           { nombre: "QUÍMICA GENERAL I" },
           { nombre: "TALLER I: ORIENTACIÓN UNIVERSITARIA" },
           { nombre: "FÍSICA I" },
           { nombre: "BIOLOGÍA CELULAR BÁSICA" },
-          { nombre: "MATEMÁTICA I" },
-        ]
-      },
-      {
-        semestre: 2,
-        ramos: [
+          { nombre: "MATEMÁTICA I" }
+        ] },
+      { semestre: 2, ramos: [
           { nombre: "ESPAÑOL ACADÉMICO", prereq: ["TALLER I: ORIENTACIÓN UNIVERSITARIA"] },
           { nombre: "FÍSICA II", prereq: ["FÍSICA I"] },
           { nombre: "BIOLOGÍA INTEGRAL", prereq: ["BIOLOGÍA CELULAR BÁSICA"] },
           { nombre: "MATEMÁTICA II", prereq: ["MATEMÁTICA I"] },
-          { nombre: "QUÍMICA GENERAL II", prereq: ["QUÍMICA GENERAL I"] },
-        ]
-      },
-      {
-        semestre: 3,
-        ramos: [
+          { nombre: "QUÍMICA GENERAL II", prereq: ["QUÍMICA GENERAL I"] }
+        ] },
+      { semestre: 3, ramos: [
           { nombre: "QUÍMICA ORGÁNICA I", prereq: ["QUÍMICA GENERAL II"] },
           { nombre: "QUÍMICA INORGÁNICA", prereq: ["QUÍMICA GENERAL II"] },
           { nombre: "HISTOLOGÍA HUMANA", prereq: ["BIOLOGÍA INTEGRAL"] },
           { nombre: "TERMODINÁMICA Y CINÉTICA BÁSICA", prereq: ["MATEMÁTICA II", "QUÍMICA GENERAL II"] },
-          { nombre: "INGLÉS COMUNICATIVO 1 NIVEL BÁSICO" },
-        ]
-      },
-      {
-        semestre: 4,
-        ramos: [
-          { nombre: "QUÍMICA ORGÁNICA II", prereq: ["QUÍMICA ORGÁNICA I", "TERMODINÁMICA Y CINÉTICA BÁSICA"] },
-          { nombre: "QUÍMICA ANALÍTICA", prereq: ["TERMODINÁMICA Y CINÉTICA BÁSICA", "QUÍMICA ORGÁNICA I", "QUÍMICA INORGÁNICA"] },
-          { nombre: "TALLER II: BIOQUÍMICA Y BIOTECNOLOGÍA", prereq: ["ESPAÑOL ACADÉMICO", "TALLER I: ORIENTACIÓN UNIVERSITARIA"] },
-          { nombre: "SEMINARIO DE INVESTIGACIÓN", prereq: ["ESPAÑOL ACADÉMICO", "BIOLOGÍA INTEGRAL", "QUÍMICA INORGÁNICA", "HISTOLOGÍA HUMANA"] },
-          { nombre: "INGLÉS COMUNICATIVO 2 NIVEL BÁSICO", prereq: ["INGLÉS COMUNICATIVO 1 NIVEL BÁSICO"] },
-        ]
-      },
-      {
-        semestre: 5,
-        ramos: [
+          { nombre: "INGLÉS COMUNICATIVO 1 NIVEL BÁSICO" }
+        ] },
+      { semestre: 4, ramos: [
+          { nombre: "QUÍMICA ORGÁNICA II", prereq: ["QUÍMICA ORGÁNICA I","TERMODINÁMICA Y CINÉTICA BÁSICA"] },
+          { nombre: "QUÍMICA ANALÍTICA", prereq: ["TERMODINÁMICA Y CINÉTICA BÁSICA","QUÍMICA ORGÁNICA I","QUÍMICA INORGÁNICA"] },
+          { nombre: "TALLER II: BIOQUÍMICA Y BIOTECNOLOGÍA", prereq: ["ESPAÑOL ACADÉMICO","TALLER I: ORIENTACIÓN UNIVERSITARIA"] },
+          { nombre: "SEMINARIO DE INVESTIGACIÓN", prereq: ["ESPAÑOL ACADÉMICO","BIOLOGÍA INTEGRAL","QUÍMICA INORGÁNICA","HISTOLOGÍA HUMANA"] },
+          { nombre: "INGLÉS COMUNICATIVO 2 NIVEL BÁSICO", prereq: ["INGLÉS COMUNICATIVO 1 NIVEL BÁSICO"] }
+        ] },
+      { semestre: 5, ramos: [
           { nombre: "QUÍMICA ORGÁNICA III", prereq: ["QUÍMICA ORGÁNICA II"] },
-          { nombre: "ANÁLISIS INSTRUMENTAL I", prereq: ["FÍSICA II", "MATEMÁTICA II", "QUÍMICA ORGÁNICA II", "QUÍMICA ANALÍTICA"] },
+          { nombre: "ANÁLISIS INSTRUMENTAL I", prereq: ["FÍSICA II","MATEMÁTICA II","QUÍMICA ORGÁNICA II","QUÍMICA ANALÍTICA"] },
           { nombre: "FISIOLOGÍA HUMANA", prereq: ["HISTOLOGÍA HUMANA"] },
           { nombre: "BIOESTADÍSTICA", prereq: ["MATEMÁTICA II"] },
-          { nombre: "INGLÉS COMUNICATIVO 3", prereq: ["INGLÉS COMUNICATIVO 2 NIVEL BÁSICO"] },
-        ]
-      },
-      {
-        semestre: 6,
-        ramos: [
-          { nombre: "BIOFÍSICA", prereq: ["QUÍMICA ORGÁNICA III", "BIOLOGÍA INTEGRAL"] },
-          { nombre: "ANÁLISIS INSTRUMENTAL II", prereq: ["QUÍMICA ORGÁNICA III", "ANÁLISIS INSTRUMENTAL I"] },
+          { nombre: "INGLÉS COMUNICATIVO 3", prereq: ["INGLÉS COMUNICATIVO 2 NIVEL BÁSICO"] }
+        ] },
+      { semestre: 6, ramos: [
+          { nombre: "BIOFÍSICA", prereq: ["QUÍMICA ORGÁNICA III","BIOLOGÍA INTEGRAL"] },
+          { nombre: "ANÁLISIS INSTRUMENTAL II", prereq: ["QUÍMICA ORGÁNICA III","ANÁLISIS INSTRUMENTAL I"] },
           { nombre: "FISIOPATOLOGÍA HUMANA", prereq: ["FISIOLOGÍA HUMANA"] },
-          { nombre: "BIOSEGURIDAD Y GARANTÍA DE CALIDAD", prereq: ["QUÍMICA ORGÁNICA III", "ANÁLISIS INSTRUMENTAL I"] },
-          { nombre: "COMPLEMENTARIA 1", electivo: true },
-        ]
-      },
-      {
-        semestre: 7,
-        ramos: [
-          { nombre: "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD", "ANÁLISIS INSTRUMENTAL II", "BIOFÍSICA", "SEMINARIO DE INVESTIGACIÓN"] },
+          { nombre: "BIOSEGURIDAD Y GARANTÍA DE CALIDAD", prereq: ["QUÍMICA ORGÁNICA III","ANÁLISIS INSTRUMENTAL I"] },
+          { nombre: "COMPLEMENTARIA 1", electivo: true }
+        ] },
+      { semestre: 7, ramos: [
+          { nombre: "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD","ANÁLISIS INSTRUMENTAL II","BIOFÍSICA","SEMINARIO DE INVESTIGACIÓN"] },
           { nombre: "INMUNOLOGÍA", prereq: ["BIOFÍSICA"], coreq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
-          { nombre: "MICROBIOLOGÍA", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD"], coreq: ["INMUNOLOGÍA", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
-          { nombre: "ORIENTACIÓN PROFESIONAL", prereq: ["FISIOPATOLOGÍA HUMANA", "BIOFÍSICA", "BIOSEGURIDAD Y GARANTÍA DE CALIDAD"] },
-          { nombre: "COMPLEMENTARIA 2", electivo: true },
-        ]
-      }
-      //       ,
-      {
-        semestre: 8,
-        ramos: [
+          { nombre: "MICROBIOLOGÍA", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD"], coreq: ["INMUNOLOGÍA","BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "ORIENTACIÓN PROFESIONAL", prereq: ["FISIOPATOLOGÍA HUMANA","BIOFÍSICA","BIOSEGURIDAD Y GARANTÍA DE CALIDAD"] },
+          { nombre: "COMPLEMENTARIA 2", electivo: true }
+        ] },
+      { semestre: 8, ramos: [
           { nombre: "BIOQUÍMICA II: BIOLOGÍA MOLECULAR", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
-          { nombre: "BIOQUÍMICA CLÍNICA I", prereq: ["MICROBIOLOGÍA", "INMUNOLOGÍA", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "FISIOPATOLOGÍA HUMANA"] },
+          { nombre: "BIOQUÍMICA CLÍNICA I", prereq: ["MICROBIOLOGÍA","INMUNOLOGÍA","BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO","FISIOPATOLOGÍA HUMANA"] },
           { nombre: "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", prereq: ["MICROBIOLOGÍA"] },
-          { nombre: "BIOINFORMÁTICA", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "BIOFÍSICA", "BIOESTADÍSTICA"] },
-          { nombre: "ADMINISTRACIÓN DE EMPRESAS", prereq: ["ORIENTACIÓN PROFESIONAL", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
-          { nombre: "INTERNADO I", coreq: ["ADMINISTRACIÓN DE EMPRESAS", "MICROBIOLOGÍA", "BIOQUÍMICA CLÍNICA I", "BIOQUÍMICA II: BIOLOGÍA MOLECULAR"] },
-        ]
-      },
-      {
-        semestre: 9,
-        ramos: [
-          { nombre: "BIOQUÍMICA CLÍNICA II", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
-          { nombre: "FARMACOLOGÍA", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
-          { nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", "BIOINFORMÁTICA"] },
-          { nombre: "UNIDAD DE INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "BIOINFORMÁTICA", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO","BIOFÍSICA","BIOESTADÍSTICA"] },
+          { nombre: "ADMINISTRACIÓN DE EMPRESAS", prereq: ["ORIENTACIÓN PROFESIONAL","BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "INTERNADO I", coreq: ["ADMINISTRACIÓN DE EMPRESAS","MICROBIOLOGÍA","BIOQUÍMICA CLÍNICA I","BIOQUÍMICA II: BIOLOGÍA MOLECULAR"] }
+        ] },
+      { semestre: 9, ramos: [
+          { nombre: "BIOQUÍMICA CLÍNICA II", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR","BIOQUÍMICA CLÍNICA I","MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "FARMACOLOGÍA", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR","BIOQUÍMICA CLÍNICA I","MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR","BIOQUÍMICA CLÍNICA I","MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA","BIOINFORMÁTICA"] },
+          { nombre: "UNIDAD DE INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR","BIOQUÍMICA CLÍNICA I","MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
           { nombre: "ELECTIVA 1", electivo: true }
-        ]
-      },
-      {
-        semestre: 10,
-        ramos: [
-          { nombre: "FORMULACIÓN DE PROYECTO DE INVESTIGACIÓN", prereq: ["METODOLOGÍA DE LA INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
-          { nombre: "HEMATOLOGÍA BIOQUÍMICA", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA"] },
-          { nombre: "BIOPROCESOS INDUSTRIALES", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA", "METODOLOGÍA DE LA INVESTIGACIÓN", "UNIDAD DE INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
+        ] },
+      { semestre: 10, ramos: [
+          { nombre: "FORMULACIÓN DE PROYECTO DE INVESTIGACIÓN", prereq: ["METODOLOGÍA DE LA INVESTIGACIÓN","ADMINISTRACIÓN DE EMPRESAS"] },
+          { nombre: "HEMATOLOGÍA BIOQUÍMICA", prereq: ["BIOQUÍMICA CLÍNICA II","FARMACOLOGÍA"] },
+          { nombre: "BIOPROCESOS INDUSTRIALES", prereq: ["BIOQUÍMICA CLÍNICA II","FARMACOLOGÍA","METODOLOGÍA DE LA INVESTIGACIÓN","UNIDAD DE INVESTIGACIÓN","ADMINISTRACIÓN DE EMPRESAS"] },
           { nombre: "ELECTIVA 2", electivo: true },
           { nombre: "ELECTIVA 3", electivo: true },
           { nombre: "INTERNADO II", electivo: true }
-        ]
-      },
-      {
-        semestre: 11,
-        ramos: [
+        ] },
+      { semestre: 11, ramos: [
           { nombre: "TESIS", electivo: true },
           { nombre: "INTERNADO SECTOR PRODUCTIVO", electivo: true },
           { nombre: "INTERNADO SECTOR SALUD", electivo: true },
           { nombre: "INTERNADO SECTOR FORENSE", electivo: true },
           { nombre: "EXAMEN DE TÍTULO", electivo: true }
-        ]
-      }
+        ] }
     ];
 
     const estado = JSON.parse(localStorage.getItem("estadoMalla") || "{}");
+    const cont = document.getElementById("malla");
 
-    const contenedor = document.getElementById("malla");
     datos.forEach(bloque => {
       const div = document.createElement("div");
       div.className = "semestre";
       div.innerHTML = `<h2>Semestre ${bloque.semestre}</h2>`;
       bloque.ramos.forEach(ramo => {
-        const boton = document.createElement("div");
-        boton.className = "asignatura";
-        boton.textContent = ramo.nombre;
-        boton.dataset.nombre = ramo.nombre;
-        if (ramo.prereq) boton.dataset.prereq = JSON.stringify(ramo.prereq);
-        if (ramo.coreq) boton.dataset.coreq = JSON.stringify(ramo.coreq);
-        if (ramo.electivo) boton.dataset.electivo = true;
-        boton.onclick = () => {
+        const btn = document.createElement("div");
+        btn.className = "asignatura";
+        btn.textContent = ramo.nombre;
+        btn.dataset.nombre = ramo.nombre;
+        if (ramo.prereq) btn.dataset.prereq = JSON.stringify(ramo.prereq);
+        if (ramo.coreq) btn.dataset.coreq = JSON.stringify(ramo.coreq);
+        if (ramo.electivo) btn.dataset.electivo = true;
+        btn.onclick = () => {
+          const prereq = JSON.parse(btn.dataset.prereq || "[]");
+          const prereqOk = prereq.every(r => estado[r]);
+          if (prereq.length && !prereqOk) return;
           estado[ramo.nombre] = !estado[ramo.nombre];
           actualizarEstado();
         };
-        div.appendChild(boton);
+        div.appendChild(btn);
       });
-      contenedor.appendChild(div);
+      cont.appendChild(div);
     });
 
     function actualizarEstado() {
       localStorage.setItem("estadoMalla", JSON.stringify(estado));
-      document.querySelectorAll(".asignatura").forEach(asig => {
-        const nombre = asig.dataset.nombre;
-        const prereq = JSON.parse(asig.dataset.prereq || "[]");
-        const coreq = JSON.parse(asig.dataset.coreq || "[]");
-        const electivo = asig.dataset.electivo === "true";
+      document.querySelectorAll(".asignatura").forEach(el => {
+        const nombre = el.dataset.nombre;
+        const prereq = JSON.parse(el.dataset.prereq || "[]");
+        const coreq = JSON.parse(el.dataset.coreq || "[]");
+        const electivo = el.dataset.electivo === "true";
 
-        asig.className = "asignatura";
+        el.className = "asignatura";
 
-        const prereqOk = prereq.every(req => estado[req]);
-        const coreqOk = coreq.every(req => estado[req] || estado[req] === undefined);
+        const prereqOk = prereq.every(r => estado[r]);
+        const coreqOk = coreq.every(r => estado[r] || !estado[r]);
 
-        if (estado[nombre]) {
-          asig.classList.add("aprobado");
-        } else if (prereq.length && !prereqOk) {
-          asig.classList.add("bloqueado");
-        }
-
-        if (electivo) asig.classList.add("electivo");
+        if (estado[nombre]) el.classList.add("aprobado");
+        else if (prereq.length && !prereqOk) el.classList.add("bloqueado");
+        if (electivo) el.classList.add("electivo");
       });
     }
 
     actualizarEstado();
+
   </script>
 </body>
 </html>
