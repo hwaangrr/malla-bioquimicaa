@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malla Curricular - BIOQUÍMICA</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #800020;
+    }
+
+    .semestre {
+      margin-bottom: 40px;
+    }
+
+    .titulo-semestre {
+      background: #800020;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .asignaturas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .asignatura {
+      background: #f8c6e9;
+      padding: 10px;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: uppercase;
+      font-weight: bold;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .asignatura:hover {
+      transform: scale(1.02);
+    }
+
+    .aprobado {
+      background: #9b59b6;
+      color: white;
+    }
+
+    .bloqueado {
+      background: #800020;
+      color: white;
+      cursor: not-allowed;
+    }
+
+    .electivo {
+      background: #85dff1;
+      color: black;
+      border: 2px dashed #0099cc;
+    }
+  </style>
+</head>
+<body>
+  <h1>MALLA CURRICULAR - BIOQUÍMICA</h1>
+  <div id="malla"></div>
+
+  <script>
+    const datos = [
+      {
+        nombre: "SEMESTRE 1",
+        asignaturas: [
+          { nombre: "QUÍMICA GENERAL I" },
+          { nombre: "TALLER I: ORIENTACIÓN UNIVERSITARIA" },
+          { nombre: "FÍSICA I" },
+          { nombre: "BIOLOGÍA CELULAR BÁSICA" },
+          { nombre: "MATEMÁTICA I" }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 2",
+        asignaturas: [
+          { nombre: "ESPAÑOL ACADÉMICO", prereq: ["TALLER I: ORIENTACIÓN UNIVERSITARIA"] },
+          { nombre: "FÍSICA II", prereq: ["FÍSICA I"] },
+          { nombre: "BIOLOGÍA INTEGRAL", prereq: ["BIOLOGÍA CELULAR BÁSICA"] },
+          { nombre: "MATEMÁTICA II", prereq: ["MATEMÁTICA I"] },
+          { nombre: "QUÍMICA GENERAL II", prereq: ["QUÍMICA GENERAL I"] }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 3",
+        asignaturas: [
+          { nombre: "QUÍMICA ORGÁNICA I", prereq: ["QUÍMICA GENERAL II"] },
+          { nombre: "QUÍMICA INORGÁNICA", prereq: ["QUÍMICA GENERAL II"] },
+          { nombre: "HISTOLOGÍA HUMANA", prereq: ["BIOLOGÍA INTEGRAL"] },
+          { nombre: "TERMODINÁMICA Y CINÉTICA BÁSICA", prereq: ["MATEMÁTICA II", "QUÍMICA GENERAL II"] },
+          { nombre: "INGLÉS COMUNICATIVO 1 NIVEL BÁSICO" }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 4",
+        asignaturas: [
+          { nombre: "QUÍMICA ORGÁNICA II", prereq: ["TERMODINÁMICA Y CINÉTICA BÁSICA", "QUÍMICA ORGÁNICA I"] },
+          { nombre: "QUÍMICA ANALÍTICA", prereq: ["TERMODINÁMICA Y CINÉTICA BÁSICA", "QUÍMICA ORGÁNICA I", "QUÍMICA INORGÁNICA"] },
+          { nombre: "TALLER II: BIOQUÍMICA Y BIOTECNOLOGÍA", prereq: ["ESPAÑOL ACADÉMICO", "TALLER I: ORIENTACIÓN UNIVERSITARIA"] },
+          { nombre: "SEMINARIO DE INVESTIGACIÓN", prereq: ["ESPAÑOL ACADÉMICO", "BIOLOGÍA INTEGRAL", "QUÍMICA INORGÁNICA", "HISTOLOGÍA HUMANA"] },
+          { nombre: "INGLÉS COMUNICATIVO 2 NIVEL BÁSICO", prereq: ["INGLÉS COMUNICATIVO 1 NIVEL BÁSICO"] }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 5",
+        asignaturas: [
+          { nombre: "QUÍMICA ORGÁNICA III", prereq: ["QUÍMICA ORGÁNICA II"] },
+          { nombre: "ANÁLISIS INSTRUMENTAL I", prereq: ["FÍSICA II", "MATEMÁTICA II", "QUÍMICA ORGÁNICA II", "QUÍMICA ANALÍTICA"] },
+          { nombre: "FISIOLOGÍA HUMANA", prereq: ["HISTOLOGÍA HUMANA"] },
+          { nombre: "BIOESTADÍSTICA", prereq: ["MATEMÁTICA II"] },
+          { nombre: "INGLÉS COMUNICATIVO 3", prereq: ["INGLÉS COMUNICATIVO 2 NIVEL BÁSICO"] }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 6",
+        asignaturas: [
+          { nombre: "BIOFÍSICA", prereq: ["QUÍMICA ORGÁNICA III", "BIOLOGÍA INTEGRAL"] },
+          { nombre: "ANÁLISIS INSTRUMENTAL II", prereq: ["QUÍMICA ORGÁNICA III", "ANÁLISIS INSTRUMENTAL I"] },
+          { nombre: "FISIOPATOLOGÍA HUMANA", prereq: ["FISIOLOGÍA HUMANA"] },
+          { nombre: "BIOSEGURIDAD Y GARANTÍA DE CALIDAD", prereq: ["QUÍMICA ORGÁNICA III", "ANÁLISIS INSTRUMENTAL I"] },
+          { nombre: "COMPLEMENTARIA 1", electivo: true }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 7",
+        asignaturas: [
+          { nombre: "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD", "ANÁLISIS INSTRUMENTAL II", "BIOFÍSICA", "SEMINARIO DE INVESTIGACIÓN"] },
+          { nombre: "INMUNOLOGÍA", prereq: ["BIOFÍSICA"] },
+          { nombre: "MICROBIOLOGÍA", prereq: ["BIOSEGURIDAD Y GARANTÍA DE CALIDAD"] },
+          { nombre: "ORIENTACIÓN PROFESIONAL", prereq: ["FISIOPATOLOGÍA HUMANA", "BIOFÍSICA", "BIOSEGURIDAD Y GARANTÍA DE CALIDAD"] },
+          { nombre: "COMPLEMENTARIA 2", electivo: true }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 8",
+        asignaturas: [
+          { nombre: "BIOQUÍMICA II: BIOLOGÍA MOLECULAR", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "BIOQUÍMICA CLÍNICA I", prereq: ["MICROBIOLOGÍA", "INMUNOLOGÍA", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "FISIOPATOLOGÍA HUMANA"] },
+          { nombre: "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", prereq: ["MICROBIOLOGÍA"] },
+          { nombre: "BIOINFORMÁTICA", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "BIOFÍSICA", "BIOESTADÍSTICA"] },
+          { nombre: "ADMINISTRACIÓN DE EMPRESAS", prereq: ["ORIENTACIÓN PROFESIONAL", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "INTERNADO I", electivo: true }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 9",
+        asignaturas: [
+          { nombre: "BIOQUÍMICA CLÍNICA II", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "FARMACOLOGÍA", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", "BIOINFORMÁTICA"] },
+          { nombre: "UNIDAD DE INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "ELECTIVA 1", electivo: true }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 10",
+        asignaturas: [
+          { nombre: "FORMULACIÓN DE PROYECTO DE INVESTIGACIÓN", prereq: ["METODOLOGÍA DE LA INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
+          { nombre: "HEMATOLOGÍA BIOQUÍMICA", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA"] },
+          { nombre: "BIOPROCESOS INDUSTRIALES", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA", "METODOLOGÍA DE LA INVESTIGACIÓN", "UNIDAD DE INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
+          { nombre: "ELECTIVA 2", electivo: true },
+          { nombre: "ELECTIVA 3", electivo: true },
+          { nombre: "INTERNADO II", electivo: true }
+        ]
+      },
+      {
+        nombre: "SEMESTRE 11",
+        asignaturas: [
+          { nombre: "TESIS", electivo: true },
+          { nombre: "INTERNADO SECTOR PRODUCTIVO", electivo: true },
+          { nombre: "INTERNADO SECTOR SALUD", electivo: true },
+          { nombre: "INTERNADO SECTOR FORENSE", electivo: true },
+          { nombre: "EXAMEN DE TÍTULO", electivo: true }
+        ]
+      }
+    ];
+
+    const estado = JSON.parse(localStorage.getItem("estadoMalla")) || {};
+
+    const container = document.getElementById("malla");
+
+    function actualizarEstado() {
+      localStorage.setItem("estadoMalla", JSON.stringify(estado));
+      document.querySelectorAll(".asignatura").forEach(asig => {
+        const nombre = asig.dataset.nombre;
+        const prereq = JSON.parse(asig.dataset.prereq || "[]");
+        const electivo = asig.dataset.electivo === "true";
+
+        asig.className = "asignatura";
+
+        if (estado[nombre]) {
+          asig.classList.add("aprobado");
+        } else if (prereq.length && !prereq.every(req => estado[req])) {
+          asig.classList.add("bloqueado");
+        }
+
+        if (electivo) asig.classList.add("electivo");
+      });
+    }
+
+    datos.forEach(sem => {
+      const divSem = document.createElement("div");
+      divSem.className = "semestre";
+
+      const titulo = document.createElement("div");
+      titulo.className = "titulo-semestre";
+      titulo.textContent = sem.nombre;
+      divSem.appendChild(titulo);
+
+      const cont = document.createElement("div");
+      cont.className = "asignaturas";
+
+      sem.asignaturas.forEach(asig => {
+        const div = document.createElement("div");
+        div.className = "asignatura";
+        div.textContent = asig.nombre;
+        div.dataset.nombre = asig.nombre;
+        if (asig.prereq) div.dataset.prereq = JSON.stringify(asig.prereq);
+        if (asig.electivo) div.dataset.electivo = true;
+
+        div.addEventListener("click", () => {
+          const prereq = JSON.parse(div.dataset.prereq || "[]");
+          if (prereq.length && !prereq.every(req => estado[req])) return;
+          estado[asig.nombre] = !estado[asig.nombre];
+          actualizarEstado();
+        });
+
+        cont.appendChild(div);
+      });
+
+      divSem.appendChild(cont);
+      container.appendChild(divSem);
+    });
+
+    actualizarEstado();
+  </script>
+</body>
+</html>
