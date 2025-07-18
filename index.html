@@ -121,7 +121,49 @@
           { nombre: "COMPLEMENTARIA 2", electivo: true },
         ]
       }
-      // Puedes seguir agregando el resto aquí
+      //       ,
+      {
+        semestre: 8,
+        ramos: [
+          { nombre: "BIOQUÍMICA II: BIOLOGÍA MOLECULAR", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "BIOQUÍMICA CLÍNICA I", prereq: ["MICROBIOLOGÍA", "INMUNOLOGÍA", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "FISIOPATOLOGÍA HUMANA"] },
+          { nombre: "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", prereq: ["MICROBIOLOGÍA"] },
+          { nombre: "BIOINFORMÁTICA", prereq: ["BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO", "BIOFÍSICA", "BIOESTADÍSTICA"] },
+          { nombre: "ADMINISTRACIÓN DE EMPRESAS", prereq: ["ORIENTACIÓN PROFESIONAL", "BIOQUÍMICA I: ENZIMOLOGÍA Y METABOLISMO"] },
+          { nombre: "INTERNADO I", coreq: ["ADMINISTRACIÓN DE EMPRESAS", "MICROBIOLOGÍA", "BIOQUÍMICA CLÍNICA I", "BIOQUÍMICA II: BIOLOGÍA MOLECULAR"] },
+        ]
+      },
+      {
+        semestre: 9,
+        ramos: [
+          { nombre: "BIOQUÍMICA CLÍNICA II", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "FARMACOLOGÍA", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA", "BIOINFORMÁTICA"] },
+          { nombre: "UNIDAD DE INVESTIGACIÓN", prereq: ["BIOQUÍMICA II: BIOLOGÍA MOLECULAR", "BIOQUÍMICA CLÍNICA I", "MICROBIOLOGÍA DIAGNÓSTICA Y APLICADA"] },
+          { nombre: "ELECTIVA 1", electivo: true }
+        ]
+      },
+      {
+        semestre: 10,
+        ramos: [
+          { nombre: "FORMULACIÓN DE PROYECTO DE INVESTIGACIÓN", prereq: ["METODOLOGÍA DE LA INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
+          { nombre: "HEMATOLOGÍA BIOQUÍMICA", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA"] },
+          { nombre: "BIOPROCESOS INDUSTRIALES", prereq: ["BIOQUÍMICA CLÍNICA II", "FARMACOLOGÍA", "METODOLOGÍA DE LA INVESTIGACIÓN", "UNIDAD DE INVESTIGACIÓN", "ADMINISTRACIÓN DE EMPRESAS"] },
+          { nombre: "ELECTIVA 2", electivo: true },
+          { nombre: "ELECTIVA 3", electivo: true },
+          { nombre: "INTERNADO II", electivo: true }
+        ]
+      },
+      {
+        semestre: 11,
+        ramos: [
+          { nombre: "TESIS", electivo: true },
+          { nombre: "INTERNADO SECTOR PRODUCTIVO", electivo: true },
+          { nombre: "INTERNADO SECTOR SALUD", electivo: true },
+          { nombre: "INTERNADO SECTOR FORENSE", electivo: true },
+          { nombre: "EXAMEN DE TÍTULO", electivo: true }
+        ]
+      }
     ];
 
     const estado = JSON.parse(localStorage.getItem("estadoMalla") || "{}");
